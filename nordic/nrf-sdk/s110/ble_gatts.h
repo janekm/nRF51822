@@ -21,29 +21,6 @@
 #include "ble_gatt.h"
 #include "nrf_svc.h"
 
-/** @addtogroup BLE_GATTS_ENUMERATIONS Enumerations
- * @{ */
-
-/**
- * @brief GATTS API SVC numbers.
- */
-enum BLE_GATTS_SVCS
-{
-  SD_BLE_GATTS_SERVICE_ADD = BLE_GATTS_SVC_BASE, /**< Add a service. */
-  SD_BLE_GATTS_INCLUDE_ADD,                      /**< Add an included service. */
-  SD_BLE_GATTS_CHARACTERISTIC_ADD,               /**< Add a characteristic. */
-  SD_BLE_GATTS_DESCRIPTOR_ADD,                   /**< Add a generic attribute. */
-  SD_BLE_GATTS_VALUE_SET,                        /**< Set an attribute value. */
-  SD_BLE_GATTS_VALUE_GET,                        /**< Get an attribute value. */
-  SD_BLE_GATTS_HVX,                              /**< Handle Value Notification or Indication. */
-  SD_BLE_GATTS_SERVICE_CHANGED,                  /**< Perform a Service Changed Indication to one or more peers. */
-  SD_BLE_GATTS_RW_AUTHORIZE_REPLY,               /**< Reply to an authorization request for a read or write operation on one or more attributes. */ 
-  SD_BLE_GATTS_SYS_ATTR_SET,                     /**< Set the persistent system attributes for a connection. */  
-  SD_BLE_GATTS_SYS_ATTR_GET,                     /**< Get updated persistent system attributes after terminating a connection. */
-};
-
-/** @} */
-
 /** @addtogroup BLE_GATTS_DEFINES Defines
  * @{ */
 
@@ -59,7 +36,7 @@ enum BLE_GATTS_SVCS
 /** @defgroup BLE_GATTS_ATTR_LENS_MAX Maximum attribute lengths
  * @{ */
 #define BLE_GATTS_FIX_ATTR_LEN_MAX (510)  /**< Maximum length for fixed length Attribute Values. */
-#define BLE_GATTS_VAR_ATTR_LEN_MAX (512)  /**< Maximum length for variable length Attribute Values. */ 
+#define BLE_GATTS_VAR_ATTR_LEN_MAX (512)  /**< Maximum length for variable length Attribute Values. */
 /** @} */
 
 /** @defgroup BLE_GATTS_SRVC_TYPES GATT Server Service Types
@@ -130,7 +107,7 @@ typedef struct
   ble_gap_conn_sec_mode_t write_perm;      /**< Write permissions. */
   uint8_t                 vlen       :1;   /**< Variable length attribute. */
   uint8_t                 vloc       :2;   /**< Value location, see @ref BLE_GATTS_VLOCS.*/
-  uint8_t                 rd_auth    :1;   /**< Read Authorization and value will be requested from the application on every read operation. */ 
+  uint8_t                 rd_auth    :1;   /**< Read Authorization and value will be requested from the application on every read operation. */
   uint8_t                 wr_auth    :1;   /**< Write Authorization will be requested from the application on every Write Request operation (but not Write Command). */
 } ble_gatts_attr_md_t;
 
@@ -144,7 +121,7 @@ typedef struct
   uint16_t             init_offs;       /**< Initial attribute value offset in bytes. If different from zero, the first init_offs bytes of the attribute value will be left uninitialized. */
   uint16_t             max_len;         /**< Maximum attribute value length in bytes, see @ref BLE_GATTS_ATTR_LENS_MAX for maximum values. */
   uint8_t*             p_value;         /**< Pointer to the attribute data. Please note that if the @ref BLE_GATTS_VLOC_USER value location is selected in the attribute metadata, this will have to point to a buffer
-                                             that remains valid through the lifetime of the attribute. This excludes usage of automatic variables that may go out of scope or any other temporary location. 
+                                             that remains valid through the lifetime of the attribute. This excludes usage of automatic variables that may go out of scope or any other temporary location.
                                              The stack may access that memory directly without the application's knowledge. */
 } ble_gatts_attr_t;
 
@@ -179,7 +156,7 @@ typedef struct
   ble_gatt_char_ext_props_t   char_ext_props;           /**< Characteristic Extended Properties. */
   uint8_t*                    p_char_user_desc;         /**< Pointer to a UTF-8, NULL if the descriptor is not required. */
   uint16_t                    char_user_desc_max_size;  /**< The maximum size in bytes of the user description descriptor. */
-  uint16_t                    char_user_desc_size;      /**< The size of the user description, must be smaller or equal to char_user_desc_max_size. */ 
+  uint16_t                    char_user_desc_size;      /**< The size of the user description, must be smaller or equal to char_user_desc_max_size. */
   ble_gatts_char_pf_t*        p_char_pf;                /**< Pointer to a presentation format structure or NULL if the descriptor is not required. */
   ble_gatts_attr_md_t*        p_user_desc_md;           /**< Attribute metadata for the User Description descriptor, or NULL for default values. */
   ble_gatts_attr_md_t*        p_cccd_md;                /**< Attribute metadata for the Client Characteristic Configuration Descriptor, or NULL for default values. */
@@ -336,7 +313,7 @@ SVCALL(SD_BLE_GATTS_SERVICE_ADD, uint32_t, sd_ble_gatts_service_add(uint8_t type
 
 /**@brief Add an include declaration to the local server ATT table.
  *
- * @note It is currently only possible to add an include declaration to the last added service (i.e. only sequential addition is supported at this time). 
+ * @note It is currently only possible to add an include declaration to the last added service (i.e. only sequential addition is supported at this time).
  *
  * @note The included service must already be present in the ATT table prior to this call.
  *
@@ -357,7 +334,7 @@ SVCALL(SD_BLE_GATTS_INCLUDE_ADD, uint32_t, sd_ble_gatts_include_add(uint16_t ser
 
 /**@brief Add a characteristic declaration, a characteristic value declaration and optional characteristic descriptor declarations to the local server ATT table.
  *
- * @note It is currently only possible to add a characteristic to the last added service (i.e. only sequential addition is supported at this time). 
+ * @note It is currently only possible to add a characteristic to the last added service (i.e. only sequential addition is supported at this time).
  *
  * @note Several restrictions apply to the parameters, such as matching permissions between the user description descriptor and the writeable auxiliaries bits,
  *       readable (no security) and writeable (selectable) CCCDs and SCCDs and valid presentation format values.
@@ -382,7 +359,7 @@ SVCALL(SD_BLE_GATTS_CHARACTERISTIC_ADD, uint32_t, sd_ble_gatts_characteristic_ad
 
 /**@brief Add a descriptor to the local server ATT table.
  *
- * @note It is currently only possible to add a descriptor to the last added characteristic (i.e. only sequential addition is supported at this time). 
+ * @note It is currently only possible to add a descriptor to the last added characteristic (i.e. only sequential addition is supported at this time).
  *
  * @param[in] char_handle   Handle of the characteristic where the descriptor is to be placed, if BLE_GATT_HANDLE_INVALID is used, it will be placed sequentially.
  * @param[in] p_attr        Pointer to the attribute structure.
@@ -425,7 +402,7 @@ SVCALL(SD_BLE_GATTS_VALUE_SET, uint32_t, sd_ble_gatts_value_set(uint16_t handle,
  *                       p_len will return the total attribute value length (excluding offset),
  *                       and not the number of bytes actually returned in p_data.
  *                       The application may use this information to allocate a suitable buffer size.
- * 
+ *
  * @return @ref NRF_SUCCESS Successfully retrieved the value of the attribute.
  * @return @ref NRF_ERROR_INVALID_ADDR Invalid pointer supplied.
  * @return @ref NRF_ERROR_NOT_FOUND Attribute not found.
@@ -440,14 +417,14 @@ SVCALL(SD_BLE_GATTS_VALUE_GET, uint32_t, sd_ble_gatts_value_get(uint16_t handle,
  *          If the application chooses to indicate an attribute value, a @ref BLE_GATTS_EVT_HVC will be sent up as soon as the confirmation arrives from
  *          the peer.
  *
- * @note    The local attribute value may be updated even if an outgoing packet is not sent to the peer due to an error during execution. 
- *          When receiveing the error codes @ref NRF_ERROR_INVALID_STATE, @ref NRF_ERROR_BUSY, @ref BLE_ERROR_GATTS_SYS_ATTR_MISSING and 
+ * @note    The local attribute value may be updated even if an outgoing packet is not sent to the peer due to an error during execution.
+ *          When receiveing the error codes @ref NRF_ERROR_INVALID_STATE, @ref NRF_ERROR_BUSY, @ref BLE_ERROR_GATTS_SYS_ATTR_MISSING and
  *          @ref BLE_ERROR_NO_TX_BUFFERS the ATT table has been updated.
  *          The caller can check whether the value has been updated by looking at the contents of *(p_hvx_params->p_len).
  *
- * @note    It is important to note that a notification will <b>consume an application buffer</b>, and will therefore 
- *          generate a @ref BLE_EVT_TX_COMPLETE event when the packet has been transmitted. An indication on the other hand will use the 
- *          standard server internal buffer and thus will only generate a @ref BLE_GATTS_EVT_HVC event as soon as the confirmation 
+ * @note    It is important to note that a notification will <b>consume an application buffer</b>, and will therefore
+ *          generate a @ref BLE_EVT_TX_COMPLETE event when the packet has been transmitted. An indication on the other hand will use the
+ *          standard server internal buffer and thus will only generate a @ref BLE_GATTS_EVT_HVC event as soon as the confirmation
  *          has been received from the peer. Please see the documentation of @ref sd_ble_tx_buffer_count_get for more details.
  *
  * @param[in] conn_handle  Connection handle.
@@ -511,7 +488,7 @@ SVCALL(SD_BLE_GATTS_RW_AUTHORIZE_REPLY, uint32_t, sd_ble_gatts_rw_authorize_repl
 /**@brief Update persistent system attribute information.
  *
  * @details Supply to the stack information about persistent system attributes.
- *          This call is legal in the connected state only, and is usually 
+ *          This call is legal in the connected state only, and is usually
  *          made immediately after a connection is established and the bond identified.
  *          usually as a response to a BLE_GATTS_EVT_SYS_ATTR_MISSING.
  *
@@ -519,7 +496,7 @@ SVCALL(SD_BLE_GATTS_RW_AUTHORIZE_REPLY, uint32_t, sd_ble_gatts_rw_authorize_repl
  *          If the pointer is NULL, the system attribute info is initialized, assuming that
  *          the application does not have any previously saved data for this bond.
  *
- * @note The state of persistent system attributes is reset upon connection and then remembered for its duration. 
+ * @note The state of persistent system attributes is reset upon connection and then remembered for its duration.
  *
  * @note If this call returns with an error code different from @ref NRF_SUCCESS, the storage of persistent system attributes may have been completed only partially.
  *       This means that the state of the attribute table is undefined, and the application should either provide a new set of attributes using this same call or
@@ -527,16 +504,16 @@ SVCALL(SD_BLE_GATTS_RW_AUTHORIZE_REPLY, uint32_t, sd_ble_gatts_rw_authorize_repl
  *
  * @param[in]  conn_handle        Connection handle.
  * @param[in]  p_sys_attr_data    Pointer to a saved copy of system attributes supplied to the stack, or NULL.
- * @param[in]  len                Size of data pointed by p_sys_attr_data, in octets. 
+ * @param[in]  len                Size of data pointed by p_sys_attr_data, in octets.
  *
  * @return @ref NRF_SUCCESS Successfully set the system attribute information.
  * @return @ref BLE_ERROR_INVALID_CONN_HANDLE Invalid Connection Handle.
  * @return @ref NRF_ERROR_INVALID_DATA Invalid data supplied, the data should be exactly the same as retrieved with @ref sd_ble_gatts_sys_attr_get.
  * @return @ref NRF_ERROR_NO_MEM Not enough memory to complete operation.
- */ 
-SVCALL(SD_BLE_GATTS_SYS_ATTR_SET, uint32_t, sd_ble_gatts_sys_attr_set(uint16_t conn_handle, uint8_t const*const p_sys_attr_data, uint16_t len)); 
+ */
+SVCALL(SD_BLE_GATTS_SYS_ATTR_SET, uint32_t, sd_ble_gatts_sys_attr_set(uint16_t conn_handle, uint8_t const*const p_sys_attr_data, uint16_t len));
 
- 
+
 /**@brief Retrieve persistent system attribute information from the stack.
  *
  * @details This call is used to retrieve information about values to be stored perisistently by the application
@@ -546,7 +523,7 @@ SVCALL(SD_BLE_GATTS_SYS_ATTR_SET, uint32_t, sd_ble_gatts_sys_attr_set(uint16_t c
  *          the previous now defunct connection will remain valid until a new one is created to allow this API call to refer to it.
  *
  * @param[in]     conn_handle       Connection handle of the recently terminated connection.
- * @param[in]     p_sys_attr_data   Pointer to a buffer where updated information about system attributes will be filled in. NULL can be provided to 
+ * @param[in]     p_sys_attr_data   Pointer to a buffer where updated information about system attributes will be filled in. NULL can be provided to
  *                                  obtain the length of the data
  * @param[in,out] p_len             Size of application buffer if p_sys_attr_data is not NULL. Unconditially updated to actual length of system attribute data.
  *
@@ -554,8 +531,8 @@ SVCALL(SD_BLE_GATTS_SYS_ATTR_SET, uint32_t, sd_ble_gatts_sys_attr_set(uint16_t c
  * @return @ref BLE_ERROR_INVALID_CONN_HANDLE Invalid Connection Handle.
  * @return @ref NRF_ERROR_INVALID_ADDR Invalid pointer supplied.
  * @return @ref NRF_ERROR_DATA_SIZE The system attribute information did not fit into the provided buffer.
- */ 
-SVCALL(SD_BLE_GATTS_SYS_ATTR_GET, uint32_t, sd_ble_gatts_sys_attr_get(uint16_t conn_handle, uint8_t * const p_sys_attr_data, uint16_t* const p_len)); 
+ */
+SVCALL(SD_BLE_GATTS_SYS_ATTR_GET, uint32_t, sd_ble_gatts_sys_attr_get(uint16_t conn_handle, uint8_t * const p_sys_attr_data, uint16_t* const p_len));
 
 /** @} */
 

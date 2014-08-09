@@ -18,38 +18,6 @@
 #include "ble_ranges.h"
 #include "nrf_svc.h"
 
-
-/**@addtogroup BLE_GAP_ENUMERATIONS Enumerations
- * @{ */
-
-/**@brief GAP API SVC numbers.
- */
-enum BLE_GAP_SVCS
-{
-  SD_BLE_GAP_ADDRESS_SET  = BLE_GAP_SVC_BASE,  /**< Set own Bluetooth Address. */
-  SD_BLE_GAP_ADDRESS_GET,                      /**< Get own Bluetooth Address. */
-  SD_BLE_GAP_ADV_DATA_SET,                     /**< Set Advertisement Data. */
-  SD_BLE_GAP_ADV_START,                        /**< Start Advertising. */
-  SD_BLE_GAP_ADV_STOP,                         /**< Stop Advertising. */
-  SD_BLE_GAP_CONN_PARAM_UPDATE,                /**< Connection Parameter Update. */
-  SD_BLE_GAP_DISCONNECT,                       /**< Disconnect. */
-  SD_BLE_GAP_TX_POWER_SET,                     /**< Set TX Power. */
-  SD_BLE_GAP_APPEARANCE_SET,                   /**< Set Appearance. */
-  SD_BLE_GAP_APPEARANCE_GET,                   /**< Get Appearance. */
-  SD_BLE_GAP_PPCP_SET,                         /**< Set PPCP. */
-  SD_BLE_GAP_PPCP_GET,                         /**< Get PPCP. */
-  SD_BLE_GAP_DEVICE_NAME_SET,                  /**< Set Device Name. */
-  SD_BLE_GAP_DEVICE_NAME_GET,                  /**< Get Device Name. */
-  SD_BLE_GAP_AUTHENTICATE,                     /**< Initiate Pairing/Bonding. */
-  SD_BLE_GAP_SEC_PARAMS_REPLY,                 /**< Reply with Security Parameters. */
-  SD_BLE_GAP_AUTH_KEY_REPLY,                   /**< Reply with an authentication key. */
-  SD_BLE_GAP_SEC_INFO_REPLY,                   /**< Reply with Security Information. */
-  SD_BLE_GAP_CONN_SEC_GET,                     /**< Obtain connection security level. */
-  SD_BLE_GAP_RSSI_START,                       /**< Start reporting of changes in RSSI. */
-  SD_BLE_GAP_RSSI_STOP,                        /**< Stop reporting of changes in RSSI. */
-};
-/**@} */
-
 /**@addtogroup BLE_GAP_DEFINES Defines
  * @{ */
 
